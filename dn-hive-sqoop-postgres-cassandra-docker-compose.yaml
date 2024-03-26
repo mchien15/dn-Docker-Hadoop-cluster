@@ -226,5 +226,5 @@ volumes:
   hadoop_hive_server_sqoop:
   hue_pg_data:
   external_postgres_db_data:
-  airflow_namenode:
+  # airflow_namenode:
   cassandra_db:
