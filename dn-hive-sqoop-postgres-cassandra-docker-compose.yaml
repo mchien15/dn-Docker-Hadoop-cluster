@@ -42,9 +42,10 @@ services:
       - hadoop_datanode:/hadoop/dfs/data
       - hadoop_datanode_conda:/root/anaconda
       - ./configs/datanode_bashrc.txt:/root/.bashrc
+      - ~/.ssh:/root/.ssh
     environment:
-      SERVICE_PRECONDITION: "namenode:9870"
-      CORE_CONF_fs_defaultFS: "hdfs://namenode:9000"
+      SERVICE_PRECONDITION: ""
+      CORE_CONF_fs_defaultFS: "hdfs://10.0.50.139:9000"
     ports:
       - "9864:9864"
     env_file:
@@ -57,6 +58,7 @@ services:
     volumes:
       - hadoop_resourcemanager_conda:/root/anaconda
       - ./configs/resourcemanager_bashrc.txt:/root/.bashrc
+      - ~/.ssh:/root/.ssh
     environment:
       SERVICE_PRECONDITION: "datanode:9864"
     ports:
@@ -71,6 +73,7 @@ services:
     volumes:
       - hadoop_nodemanager_conda:/root/anaconda
       - ./configs/nodemanager_bashrc.txt:/root/.bashrc
+      - ~/.ssh:/root/.ssh
     environment:
       SERVICE_PRECONDITION: "datanode:9864 resourcemanager:8088"
     ports:
@@ -89,6 +92,7 @@ services:
       - "8188:8188"
     volumes:
       - hadoop_historyserver:/hadoop/yarn/timeline
+      - ~/.ssh:/root/.ssh
     env_file:
       - ./hadoop.env
 
@@ -97,7 +101,7 @@ services:
     image: mrugankray/hive-server-sqoop:1.0
     container_name: hive-server
     depends_on:
-      - namenode
+      # - namenode
       - datanode
       - hive-metastore
     env_file:
@@ -108,6 +112,7 @@ services:
       - ./configs/hive_server/hive_server_bashrc.txt:/root/.bashrc
       - ./configs/hive_server/sqoop-site.xml:/usr/lib/sqoop/conf/sqoop-site.xml
       - ./configs/hive_server/sshd_config.conf:/etc/ssh/sshd_config
+      - ~/.ssh:/root/.ssh
     environment:
       HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
       SERVICE_PRECONDITION: "hive-metastore:9083"
@@ -137,6 +142,7 @@ services:
     container_name: huedb
     volumes:
       - hue_pg_data:/var/lib/postgresl/data/
+      - ~/.ssh:/root/.ssh
     env_file:
       - ./hadoop.env
     environment:
@@ -156,6 +162,7 @@ services:
       - ./hadoop.env
     volumes:
       - ./hue-overrides.ini:/usr/share/hue/desktop/conf/hue-overrides.ini
+      - ~/.ssh:/root/.ssh
     depends_on:
       - huedb
 
@@ -165,6 +172,7 @@ services:
     container_name: external_postgres_db
     volumes:
       - external_postgres_db_data:/var/lib/postgresl/data/
+      - ~/.ssh:/root/.ssh
     ports:
       - "5432:5432"
     environment:
@@ -197,6 +205,7 @@ services:
     restart: always
     volumes:
       - cassandra_db:/var/lib/cassandra
+      - ~/.ssh:/root/.ssh
     healthcheck:
       test: ["CMD", "cqlsh", "-u cassandra", "-p cassandra" ,"-e describe keyspaces"]
       interval: 15s
