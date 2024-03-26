@@ -62,6 +62,9 @@ RUN rm -rf guava-11.0.2.jar && mv log4j-slf4j-impl-2.18.0.jar ../ && curl -O htt
 
 # copy services file
 WORKDIR /
+
+RUN apt-get update || (apt-get install nano -y --force-yes && apt-get install openssh-server -y --force-yes)
+
 COPY ./start_services.sh /
 
 # install nano

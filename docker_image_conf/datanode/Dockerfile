@@ -12,6 +12,8 @@ WORKDIR /
 # installing mini conda
 RUN curl -O https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh && mv Mini* miniconda.sh && bash miniconda.sh -b -u -p ~/anaconda && conda update conda -y && rm miniconda.sh && conda install conda-pack -y
 
+RUN apt-get update || (apt-get install nano -y --force-yes && apt-get install openssh-server -y --force-yes)
+
 EXPOSE 9864
 
 # start datanode
