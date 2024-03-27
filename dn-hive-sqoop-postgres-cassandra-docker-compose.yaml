@@ -37,7 +37,7 @@ services:
   datanode:
     # image: mrugankray/datanode-python:1.0
     build:
-      context: ./datanode
+      context: ./docker_image_conf/datanode
       dockerfile: Dockerfile
     container_name: datanode
     restart: always
