@@ -35,10 +35,10 @@ services:
   #     - ./hadoop.env
 
   datanode:
-    # image: mrugankray/datanode-python:1.0
-    build:
-      context: ./docker_image_conf/datanode
-      dockerfile: Dockerfile
+    image: mrugankray/datanode-python:1.0
+    # build:
+    #   context: ./docker_image_conf/datanode
+    #   dockerfile: Dockerfile
     container_name: datanode
     restart: always
     volumes:
