@@ -68,7 +68,7 @@ RUN apt-get update || (apt-get install nano -y --force-yes && apt-get install op
 COPY ./start_services.sh /
 
 # install nano
-RUN apt-get update && apt-get install nano -y
+# RUN apt-get update && apt-get install nano -y
 
 # start namenode, spark, airflow, zepplin
 CMD ["/start_services.sh"]
