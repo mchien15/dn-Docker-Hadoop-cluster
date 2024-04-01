@@ -1,5 +1,5 @@
 # FROM bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
-FROM chienlm15/hadoop-resourcemanager:latestS
+FROM chienlm15/hadoop-resourcemanager:latest
 
 LABEL maintainer="mrugankray@gmail.com"
 LABEL description="container acting as resourcemanager & python installed"
